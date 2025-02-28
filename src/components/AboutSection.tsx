@@ -106,18 +106,17 @@ const AboutSection = () => {
       <Imgscrollcontainer className="first-img-container">
         <ImgLeft className="first-img-left">
           <img
-            src="src\assets\IMG_0317.JPG"
+            src="/IMG_0317.JPG"
             alt="placeholder"
             style={{ width: "300px", height: "400px" }}
-          ></img>
+          />
         </ImgLeft>
         <ImgRight className="first-img-right">
-          {" "}
           <img
-            src="src\assets\IMG_0317.JPG"
+            src="/IMG_0317.JPG"
             alt="placeholder"
             style={{ width: "100%", height: "100%" }}
-          ></img>
+          />
         </ImgRight>
       </Imgscrollcontainer>
       <VelocityTicker></VelocityTicker>
@@ -135,17 +134,17 @@ const AboutSection = () => {
       <Imgscrollcontainer className="second-img-container">
         <ImgLeft className="second-img-left">
           <img
-            src="src\assets\IMG_0317.JPG"
+            src="/IMG_0317.JPG"
             alt="placeholder"
             style={{ width: "100%", height: "100%" }}
-          ></img>
+          />
         </ImgLeft>
         <ImgRight className="second-img-right">
           <img
-            src="src\assets\IMG_0317.JPG"
+            src="/IMG_0317.JPG"
             alt="placeholder"
             style={{ width: "300px", height: "400px" }}
-          ></img>
+          />
         </ImgRight>
       </Imgscrollcontainer>
     </Container>

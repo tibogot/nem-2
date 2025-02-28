@@ -103,7 +103,7 @@ const TextLeft = styled.div`
   }
 `;
 
-const PinSection = () => {
+export default function PinSection() {
   return (
     <SectionContainer className="pin-section">
       <Image
@@ -116,7 +116,7 @@ const PinSection = () => {
         src="https://images.unsplash.com/photo-1581784368651-8916092072cf?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Image 2"
       />
-      <Image className="bg-img3" src="src\assets\IMG_0317.JPG" alt="Image 3" />
+      <Image className="bg-img3" src="/IMG_0317.JPG" alt="Image 3" />
 
       <Heading>
         <p>( Business )</p>
@@ -158,11 +158,7 @@ const PinSection = () => {
 
       <ImgCenter>
         <ImgCenterContainer className="img-center-container">
-          <img
-            className="imgctr1"
-            src="src\assets\IMG_0317.JPG"
-            alt="Image 1"
-          />
+          <img className="imgctr1" src="/IMG_0317.JPG" alt="Image 1" />
           <img
             className="imgctr2"
             src="https://images.unsplash.com/photo-1581784368651-8916092072cf?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -177,6 +173,4 @@ const PinSection = () => {
       </ImgCenter>
     </SectionContainer>
   );
-};
-
-export default PinSection;
+}
