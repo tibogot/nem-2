@@ -1,21 +1,34 @@
 import styled from "styled-components";
-import { useRef, useEffect, useState } from "react";
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+
+const SectionContainer = styled.div`
+  width: 100%;
+  padding: 12rem 4rem;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+
+  @media (max-width: 768px) {
+    padding: 8rem 2rem;
+  }
+`;
 
 const CarouselContainer = styled.div`
   position: relative;
   width: 100%;
+  margin-top: 4rem;
   overflow: hidden;
-  padding: 12rem 0;
-  background-color: var(--color-background);
-  color: var(--color-primary);
-  display: flex;
-  flex-direction: column;
-  gap: 8rem; // Increased gap between elements
+`;
 
-  @media screen and (max-width: 768px) {
-    padding: 6rem 0;
-    gap: 4rem;
+const TestimonialTrack = styled(motion.div)`
+  display: flex;
+  width: fit-content;
+  gap: 2rem;
+  cursor: grab;
+  padding: 2rem 0;
+
+  &:active {
+    cursor: grabbing;
   }
 `;
 
@@ -53,45 +66,18 @@ const TextContainer = styled.div`
   }
 `;
 
-const CarouselWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  padding: 0 4rem;
-`;
-
-const DraggableContainer = styled.div`
-  display: flex;
-  gap: 4rem;
-  height: 100%;
-  cursor: grab;
-  overflow: hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  position: relative; // Add this
-  margin-top: 4rem; // Add space between text and carousel
-  padding: 0 4rem;
-
-  &::-webkit-scrollbar {
-    display: none; // Chrome, Safari, Opera
-  }
-
-  &:active {
-    cursor: grabbing;
-  }
-`;
-
 const TestimonialCard = styled.div`
-  min-width: 400px;
+  width: 400px;
+  flex-shrink: 0;
   padding: 4rem;
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(77, 61, 48, 0.1);
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
   gap: 2rem;
 
   @media screen and (max-width: 768px) {
-    min-width: 280px;
+    width: calc(100vw - 4rem);
     padding: 2rem;
   }
 `;
@@ -105,38 +91,6 @@ const Quote = styled.p`
 const Author = styled.p`
   font-size: 1.6rem;
   font-weight: bold;
-`;
-
-const NavButton = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--color-primary);
-  border: none;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  visibility: ${(props) => (props.hidden ? "hidden" : "visible")};
-  opacity: ${(props) => (props.hidden ? 0 : 0.8)};
-  transition: opacity 0.2s ease;
-  color: var(--color-background);
-  z-index: 10; // Add this
-
-  &:hover {
-    opacity: 1;
-  }
-
-  &.prev {
-    left: 0;
-  }
-
-  &.next {
-    right: 0;
-  }
 `;
 
 const testimonials = [
@@ -175,69 +129,39 @@ const testimonials = [
   },
 ];
 
-const TestimonialsCarousel = () => {
-  const dragRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const [isAtStart, setIsAtStart] = useState(true);
-  const [isAtEnd, setIsAtEnd] = useState(false);
+export default function TestimonialsCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [trackWidth, setTrackWidth] = useState(0);
 
-  const checkScrollPosition = () => {
-    if (!dragRef.current) return;
-
-    const { scrollLeft, scrollWidth, clientWidth } = dragRef.current;
-    setIsAtStart(scrollLeft <= 0);
-    setIsAtEnd(Math.ceil(scrollLeft + clientWidth) >= scrollWidth);
-  };
+  const cardGap = 32; // 2rem gap
+  const totalGaps = cardGap * (testimonials.length - 1);
 
   useEffect(() => {
-    checkScrollPosition();
+    const measureWidths = () => {
+      if (containerRef.current && trackRef.current) {
+        setContainerWidth(containerRef.current.clientWidth);
+
+        const cards = Array.from(trackRef.current.childNodes);
+        const totalCardsWidth = cards.reduce(
+          (acc, node) => acc + (node as HTMLElement).clientWidth,
+          0
+        );
+        setTrackWidth(totalCardsWidth);
+      }
+    };
+
+    measureWidths();
+    window.addEventListener("resize", measureWidths);
+
+    return () => {
+      window.removeEventListener("resize", measureWidths);
+    };
   }, []);
-
-  const handleScroll = () => {
-    checkScrollPosition();
-  };
-
-  useEffect(() => {
-    const container = dragRef.current;
-    container?.addEventListener("scroll", handleScroll);
-    return () => container?.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartX(e.pageX - dragRef.current!.offsetLeft);
-    setScrollLeft(dragRef.current!.scrollLeft);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - dragRef.current!.offsetLeft;
-    const walk = x - startX;
-    if (dragRef.current) {
-      dragRef.current.scrollLeft = scrollLeft - walk;
-      checkScrollPosition();
-    }
-  };
-
-  const handlePrev = () => {
-    if (!dragRef.current) return;
-    dragRef.current.scrollLeft -= 450;
-  };
-
-  const handleNext = () => {
-    if (!dragRef.current) return;
-    dragRef.current.scrollLeft += 450;
-  };
 
   return (
-    <CarouselContainer>
+    <SectionContainer>
       <CarouselTitle>( Testimonial )</CarouselTitle>
       <TextContainer>
         <h3>AVIS</h3>
@@ -248,22 +172,16 @@ const TestimonialsCarousel = () => {
         </h3>
       </TextContainer>
 
-      <CarouselWrapper>
-        <NavButton className="prev" onClick={handlePrev} hidden={isAtStart}>
-          <CaretLeft size={24} weight="bold" />
-        </NavButton>
-
-        <DraggableContainer
-          ref={dragRef}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onMouseMove={handleMouseMove}
-          style={{
-            cursor: isDragging ? "grabbing" : "grab",
-            userSelect: "none",
-            scrollBehavior: "smooth",
+      <CarouselContainer ref={containerRef}>
+        <TestimonialTrack
+          ref={trackRef}
+          drag="x"
+          dragConstraints={{
+            left: -(trackWidth - containerWidth + totalGaps),
+            right: 0,
           }}
+          dragElastic={0.2}
+          dragTransition={{ bounceDamping: 18 }}
         >
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index}>
@@ -271,14 +189,8 @@ const TestimonialsCarousel = () => {
               <Author>{testimonial.author}</Author>
             </TestimonialCard>
           ))}
-        </DraggableContainer>
-
-        <NavButton className="next" onClick={handleNext} hidden={isAtEnd}>
-          <CaretRight size={24} weight="bold" />
-        </NavButton>
-      </CarouselWrapper>
-    </CarouselContainer>
+        </TestimonialTrack>
+      </CarouselContainer>
+    </SectionContainer>
   );
-};
-
-export default TestimonialsCarousel;
+}
