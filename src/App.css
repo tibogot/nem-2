@@ -1,0 +1,74 @@
+@font-face {
+  font-family: "MyFont";
+  src: url("./assets/fonts/PPNeueMontreal-Book.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --color-primary: #4d3d30;
+  --color-background: #f4f0ea;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "MyFont", sans-serif;
+  background-color: #f4f0ea;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: 8rem;
+}
+
+h2 {
+  font-size: clamp(2rem, 8vw, 6rem);
+}
+
+h3 {
+  font-size: 4.2rem;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: clamp(2rem, 8vw, 8rem);
+}
+h5 {
+  font-size: 5rem;
+  font-weight: 500;
+}
+p {
+  font-size: 2rem;
+  font-weight: 500;
+  /* margin: 0.5rem 0; */
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 50%; /* Adjust base font size for mobile */
+  }
+
+  h1 {
+    font-size: 6rem;
+  }
+
+  h3 {
+    font-size: 3.2rem;
+  }
+
+  h5 {
+    font-size: 3.6rem;
+  }
+
+  p {
+    font-size: 1.8rem;
+  }
+}
