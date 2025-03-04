@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 
 const SectionContainer = styled.div`
   width: 100%;
-  padding: 12rem 4rem;
+  padding: 12rem var(--padding-desktop);
   background-color: var(--color-background);
   color: var(--color-primary);
 
   @media (max-width: 768px) {
-    padding: 8rem 2rem;
+    padding: 8rem var(--padding-mobile);
   }
 `;
 
@@ -33,11 +33,11 @@ const TestimonialTrack = styled(motion.div)`
 `;
 
 const CarouselTitle = styled.p`
-  padding: 0 4rem; // Only horizontal padding needed
+  padding: 0; // Remove padding since parent handles it
 `;
 
 const TextContainer = styled.div`
-  padding: 0 4rem; // Only horizontal padding needed
+  padding: 0; // Remove padding since parent handles it
   display: flex;
   justify-content: space-between;
   align-items: start;

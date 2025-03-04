@@ -9,7 +9,7 @@ const BlogContainer = styled.div`
   position: relative;
   width: 100%;
   min-height: 800px; // This was the key fix
-  padding: 12rem 4rem;
+  padding: 12rem var(--padding-desktop);
   background-color: var(--color-background);
   color: var(--color-primary);
 
@@ -22,7 +22,7 @@ const BlogContainer = styled.div`
 
   @media (max-width: 768px) {
     min-height: 600px; // Responsive min-height
-    padding: 8rem 2rem;
+    padding: 8rem var(--padding-mobile);
   }
 `;
 
@@ -31,6 +31,7 @@ const BlogHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: start;
+  padding: 0; // Remove padding here
 
   @media (max-width: 768px) {
     flex-direction: column;

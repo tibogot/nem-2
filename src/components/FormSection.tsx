@@ -32,7 +32,7 @@ const ImageSection = styled.div`
 const FormContent = styled.div`
   width: 50%; // Explicit width
   box-sizing: border-box; // Ensure padding is included in width
-  padding: 8rem;
+  padding: 8rem var(--padding-desktop);
   display: flex;
   flex-direction: column;
   gap: 4rem;
@@ -40,7 +40,7 @@ const FormContent = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 100%;
-    padding: 4rem 2rem;
+    padding: 4rem var(--padding-mobile);
   }
 `;
 

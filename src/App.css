@@ -8,6 +8,8 @@
 :root {
   --color-primary: #4d3d30;
   --color-background: #f4f0ea;
+  --padding-desktop: 4rem;
+  --padding-mobile: 2rem;
 }
 
 * {

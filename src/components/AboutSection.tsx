@@ -10,13 +10,13 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   // background-color: rgb(177, 26, 26);
-  padding: 12rem 4rem 8rem 4rem;
+  padding: 12rem var(--padding-desktop) 8rem;
   gap: 10rem;
   color: var(--color-primary);
   background-color: var(--color-background);
 
   @media screen and (max-width: 768px) {
-    padding: 8rem 2rem 4rem 2rem;
+    padding: 8rem var(--padding-mobile) 4rem;
     gap: 6rem;
   }
 `;
@@ -26,6 +26,7 @@ const TextContainer = styled.div`
   justify-content: space-between;
   align-items: start;
   width: 100%;
+  padding: 0; // Remove padding here since container handles it
 
   h3 {
     flex: 1; // Each h3 takes equal space

@@ -195,7 +195,7 @@ export default function Home() {
       <Section2 />
       <PinSection />
       <AboutSection />
-      <Section3 />
+      {/* <Section3 /> */}
       <ImgScaleSection />
       <TestimonialsCarousel />
       <FormSection />

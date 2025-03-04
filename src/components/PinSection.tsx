@@ -25,13 +25,21 @@ const Image = styled.img`
   height: 110%;
   object-fit: cover;
   filter: brightness(0.8) blur(4px);
+
+  @media screen and (max-width: 768px) {
+    filter: brightness(0.8); // Remove blur on mobile
+  }
 `;
 
 const Heading = styled.h2`
   position: absolute;
   top: 80px;
-  left: 40px;
+  left: var(--padding-desktop);
   z-index: 4; /* Ensures text stays above images */
+
+  @media screen and (max-width: 768px) {
+    left: var(--padding-mobile);
+  }
 `;
 
 const ImgCenter = styled.div`
@@ -45,8 +53,7 @@ const ImgCenter = styled.div`
   overflow: hidden;
 
   @media screen and (max-width: 768px) {
-    width: 240px;
-    height: 320px;
+    display: none; // Hide on mobile
   }
 `;
 
@@ -76,7 +83,7 @@ const TextPin = styled.div`
   transform: translate(-50%, -50%);
   z-index: 4;
   text-align: left;
-  width: 90%;
+  width: calc(100% - (var(--padding-desktop) * 2));
   justify-content: space-between;
   align-items: center;
   p {
@@ -86,12 +93,15 @@ const TextPin = styled.div`
   @media screen and (max-width: 768px) {
     flex-direction: column;
     gap: 2rem;
+    align-items: flex-start; // Add this to align items to the left
+    width: calc(100% - (var(--padding-mobile) * 2));
 
     p {
       width: 100%;
     }
   }
 `;
+
 const TextLeft = styled.div`
   display: flex;
   flex-direction: row;
@@ -100,6 +110,13 @@ const TextLeft = styled.div`
 
   h5 {
     white-space: nowrap; // Prevent text from wrapping
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    flex-direction: column; // Stack vertically on mobile
+    align-items: flex-start; // Align items to the left
+    gap: 1rem; // Reduce gap for mobile
   }
 `;
 
