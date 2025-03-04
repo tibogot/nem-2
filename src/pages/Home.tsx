@@ -2,7 +2,7 @@ import Hero from "../components/Hero";
 import Section2 from "../components/Section2";
 import PinSection from "../components/PinSection";
 import AboutSection from "../components/AboutSection";
-import Section3 from "../components/Section3";
+// import Section3 from "../components/Section3";
 import ImgScaleSection from "../components/ImgScaleSection";
 import TestimonialsCarousel from "../components/TestimonialsCarousel";
 import FormSection from "../components/FormSection";
