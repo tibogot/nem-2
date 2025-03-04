@@ -29,14 +29,9 @@ const BlogContainer = styled.div`
 const BlogHeader = styled.div`
   margin-bottom: 6rem;
   display: flex;
-  justify-content: space-between;
-  align-items: start;
-  padding: 0; // Remove padding here
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 2rem;
-  }
+  flex-direction: column; // Change to column layout
+  gap: 2rem;
+  padding: 0;
 `;
 
 const HeaderContent = styled.div`
@@ -44,6 +39,10 @@ const HeaderContent = styled.div`
 
   h3 {
     margin: 2rem 0;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
   }
 `;
 
